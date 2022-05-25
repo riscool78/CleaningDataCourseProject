@@ -57,4 +57,5 @@ finaldata$activity <- factor(finaldata$activity,
 summarydata <- finaldata %>% group_by(activity, subject) %>% summarize_all(mean)
 rm(labels)
 
+#write txt file to updload to github repository
 write.table(summarydata, file = "summarydata.txt", row.names = FALSE)
