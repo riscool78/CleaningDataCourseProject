@@ -16,25 +16,31 @@ if (!(file.exists("DataFiles/UCI HAR Dataset")))
 #create features vector for column names
 features <- read.table("./DataFiles/UCI HAR Dataset/features.txt", quote="\"", comment.char="", check.names = FALSE) %>% pull(V2)
 
-#subset only columns to keep
+#create character vector to be used to subset columns to keep
 featurestokeep <- features %>% str_subset("Mean|mean|std")
 
 #Test data parsing
+#read files
 X_test <- read.table("./DataFiles/UCI HAR Dataset/test/X_test.txt", quote="\"", comment.char="", check.names = FALSE, col.names = features)
 Y_test <- read.table("./DataFiles/UCI HAR Dataset/test/y_test.txt", col.names = "activity")
 subject_test <- read.table("./Datafiles/UCI HAR Dataset/test/subject_test.txt", col.names = "subject")
 
+#bind files together
 test <- cbind(subject_test, Y_test, X_test)
 
+#remove interim objects
 rm(subject_test,Y_test, X_test)
 
 #Train data parsing
+#read files
 X_train <- read.table("./DataFiles/UCI HAR Dataset/train/X_train.txt", quote="\"", comment.char="", check.names = FALSE, col.names = features)
 Y_train <- read.table("./DataFiles/UCI HAR Dataset/train/y_train.txt", col.names = "activity")
 subject_train <- read.table("./Datafiles/UCI HAR Dataset/train/subject_train.txt", col.names = "subject")
 
+#bind files together
 train <- cbind(subject_train, Y_train, X_train)
 
+#remove interim objects
 rm(subject_train, Y_train, X_train)
 
 #combine train and test data sets
